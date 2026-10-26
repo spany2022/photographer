@@ -1,0 +1,268 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #101010;
+  --color-charcoal: #191817;
+  --color-ivory: #f6f1e9;
+  --color-gold: #c6a66b;
+  --color-gold-soft: #d9c193;
+  --color-taupe: #b9ada0;
+  --color-taupe-deep: #6f665c;
+
+  --font-serif: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
+  --font-sans: var(--font-manrope), "Manrope", system-ui, sans-serif;
+
+  --ease-cine: cubic-bezier(0.22, 1, 0.36, 1);
+  --breakpoint-xs: 26rem;
+}
+
+@layer base {
+  html {
+    background: var(--color-ink);
+    color: var(--color-ivory);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+  body {
+    font-family: var(--font-sans);
+    background: var(--color-ink);
+    overflow-x: clip;
+  }
+  ::selection {
+    background: var(--color-gold);
+    color: var(--color-ink);
+  }
+  :focus-visible {
+    outline: 1px solid var(--color-gold);
+    outline-offset: 4px;
+  }
+  input,
+  select,
+  textarea {
+    font: inherit;
+  }
+  /* Calendar icon in dark-on-ivory date inputs */
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    opacity: 0.55;
+    cursor: pointer;
+  }
+}
+
+@layer components {
+  .meta {
+    font-family: var(--font-sans);
+    font-size: 0.6875rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .display {
+    font-family: var(--font-serif);
+    font-weight: 300;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+  }
+  .hairline {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+    opacity: 0.5;
+  }
+
+  /* Buttons */
+  .btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    min-height: 3.25rem;
+    padding: 0 1.75rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    border-radius: 999px;
+    white-space: nowrap;
+    transition:
+      background-color 0.5s var(--ease-cine),
+      color 0.5s var(--ease-cine),
+      border-color 0.5s var(--ease-cine),
+      transform 0.5s var(--ease-cine);
+    will-change: transform;
+  }
+  .btn-gold {
+    background: var(--color-gold);
+    color: var(--color-ink);
+  }
+  .btn-gold:hover {
+    background: var(--color-ivory);
+  }
+  .btn-ghost {
+    border: 1px solid color-mix(in srgb, var(--color-ivory) 35%, transparent);
+    color: var(--color-ivory);
+  }
+  .btn-ghost:hover {
+    border-color: var(--color-gold);
+    color: var(--color-gold);
+  }
+  .btn-dark {
+    background: var(--color-ink);
+    color: var(--color-ivory);
+  }
+  .btn-dark:hover {
+    background: var(--color-gold);
+    color: var(--color-ink);
+  }
+
+  /* Underline link */
+  .link-line {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .link-line::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -0.35rem;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0.35);
+    transform-origin: left;
+    opacity: 0.6;
+    transition: transform 0.6s var(--ease-cine), opacity 0.6s;
+  }
+  .link-line:hover::after {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+
+  /* Form fields on ivory */
+  .field {
+    width: 100%;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid color-mix(in srgb, var(--color-ink) 22%, transparent);
+    padding: 0.85rem 0 0.75rem;
+    color: var(--color-ink);
+    font-size: 1.05rem;
+    border-radius: 0;
+    transition: border-color 0.4s var(--ease-cine);
+    appearance: none;
+  }
+  .field::placeholder {
+    color: color-mix(in srgb, var(--color-ink) 38%, transparent);
+  }
+  .field:focus {
+    outline: none;
+    border-bottom-color: var(--color-gold);
+  }
+  .field[aria-invalid="true"] {
+    border-bottom-color: #a4483a;
+  }
+}
+
+/* Film grain overlay */
+.grain {
+  position: fixed;
+  inset: -50%;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.07;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: grain 1.2s steps(6) infinite;
+  mix-blend-mode: overlay;
+}
+@keyframes grain {
+  0% { transform: translate(0, 0); }
+  20% { transform: translate(-4%, 3%); }
+  40% { transform: translate(3%, -5%); }
+  60% { transform: translate(-6%, -2%); }
+  80% { transform: translate(5%, 4%); }
+  100% { transform: translate(0, 0); }
+}
+
+/* Letterbox vignette for cinematic frames */
+.vignette {
+  background:
+    radial-gradient(120% 90% at 50% 40%, transparent 40%, rgb(16 16 16 / 0.55) 100%),
+    linear-gradient(180deg, rgb(16 16 16 / 0.55) 0%, transparent 22%, transparent 55%, rgb(16 16 16 / 0.92) 100%);
+}
+
+/* Cinematic grade on stock footage so mixed sources feel like one film */
+.grade {
+  filter: saturate(0.82) contrast(1.06) brightness(0.92) sepia(0.08);
+}
+
+/* Infinite marquee */
+.marquee {
+  animation: marquee 60s linear infinite;
+}
+@keyframes marquee {
+  to { transform: translateX(-50%); }
+}
+
+/* Reveal states — only hidden when JS is running and motion is allowed */
+html.js:not(.reduce-motion) [data-fade],
+html.js:not(.reduce-motion) [data-split],
+html.js:not(.reduce-motion) [data-stagger] > * {
+  opacity: 0;
+}
+html.js:not(.reduce-motion) [data-mask] {
+  clip-path: inset(100% 0 0 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .grain,
+  .marquee {
+    animation: none;
+  }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* No-JS safety: anything hidden for reveal stays visible */
+@media (scripting: none) {
+  [data-fade],
+  [data-split],
+  [data-stagger] > * {
+    opacity: 1 !important;
+  }
+  [data-mask] {
+    clip-path: none !important;
+  }
+}
+
+/* Hero arrival — pre-hidden so there is no flash before GSAP takes over */
+.hero-bar {
+  transform: scaleY(0);
+}
+html.js:not(.reduce-motion) .hero-media,
+html.js:not(.reduce-motion) .hero-rise {
+  opacity: 0;
+}
+html.js:not(.reduce-motion) .hero-bar {
+  transform: scaleY(1);
+}
+@keyframes scrollcue {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(200%); }
+}
+@keyframes fadein {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
