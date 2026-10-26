@@ -33,14 +33,23 @@ export function MobileCTA() {
   const show = pastHero && !suppressed;
 
   return (
+    // Floats above the screen edge (and the iPhone home bar) so browser toolbars never cover it.
     <div
-      className={`fixed inset-x-0 bottom-0 z-40 p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] transition-transform duration-700 ease-[var(--ease-cine)] md:hidden ${
-        show ? "translate-y-0" : "translate-y-[120%]"
+      className={`fixed inset-x-3 bottom-[max(0.75rem,env(safe-area-inset-bottom))] z-40 mx-auto max-w-md transition-[translate,opacity] duration-700 ease-[var(--ease-cine)] md:hidden ${
+        show ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-[calc(100%+2rem)] opacity-0"
       }`}
       inert={!show}
     >
-      <a href={quickInquiryUrl} target="_blank" rel="noopener noreferrer" className="btn btn-gold w-full shadow-2xl shadow-black/50">
-        <WhatsAppIcon /> Check Your Wedding Date
+      <a
+        href={quickInquiryUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="btn btn-gold w-full whitespace-nowrap shadow-2xl shadow-black/50"
+        aria-label="Check your wedding date — opens WhatsApp"
+      >
+        <WhatsAppIcon className="size-4 shrink-0" />
+        <span className="xs:hidden">Check Your Date</span>
+        <span className="hidden xs:inline">Check Your Wedding Date</span>
       </a>
     </div>
   );

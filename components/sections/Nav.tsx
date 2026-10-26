@@ -10,18 +10,11 @@ import { Logo, navLinks } from "@/components/ui/brand";
 
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
-  const [hidden, setHidden] = useState(false);
   const [open, setOpen] = useState(false);
 
+  // The bar stays pinned and fully visible; it only gains a backdrop once the page scrolls.
   useEffect(() => {
-    let last = window.scrollY;
-    const onScroll = () => {
-      const y = window.scrollY;
-      setScrolled(y > 40);
-      setHidden(y > 600 && y > last + 4);
-      if (y < last - 4) setHidden(false);
-      last = y;
-    };
+    const onScroll = () => setScrolled(window.scrollY > 40);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -54,9 +47,9 @@ export function Nav() {
         Skip to content
       </a>
       <header
-        className={`fixed inset-x-0 top-0 z-50 transition-all duration-700 ease-[var(--ease-cine)] ${
-          hidden && !open ? "-translate-y-full" : "translate-y-0"
-        } ${scrolled && !open ? "bg-ink/70 backdrop-blur-xl" : "bg-transparent"}`}
+        className={`fixed inset-x-0 top-0 z-50 pt-[env(safe-area-inset-top)] transition-colors duration-700 ease-[var(--ease-cine)] ${
+          scrolled && !open ? "bg-ink/80 backdrop-blur-xl" : "bg-transparent"
+        }`}
       >
         <nav className="mx-auto flex h-18 max-w-[1600px] items-center justify-between px-5 sm:h-20 sm:px-10" aria-label="Main">
           <a href="#top" onClick={go("top")} className="text-ivory" aria-label={`${siteConfig.name} — home`}>

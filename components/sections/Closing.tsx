@@ -30,7 +30,7 @@ export function Closing() {
         <p data-fade className="mx-auto mt-10 max-w-lg text-lg text-ivory/80">
           Let&apos;s preserve the moments you&apos;ll want to return to, again and again.
         </p>
-        <div data-fade className="mt-12 flex flex-col items-center justify-center gap-3 xs:flex-row">
+        <div data-fade className="mx-auto mt-12 flex max-w-sm flex-col items-stretch justify-center gap-3 sm:max-w-none sm:flex-row sm:items-center">
           <DateCTA />
           <a href="#films" data-magnetic className="btn btn-ghost">
             Watch Our Films

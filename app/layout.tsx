@@ -58,6 +58,8 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   themeColor: "#101010",
   colorScheme: "dark",
+  // Lets fixed bottom UI read env(safe-area-inset-bottom) on notched phones.
+  viewportFit: "cover",
 };
 
 /** Only facts present in siteConfig — nothing invented. */

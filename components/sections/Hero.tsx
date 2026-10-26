@@ -97,7 +97,7 @@ export function Hero() {
           <p className="hero-rise max-w-md text-base leading-relaxed text-ivory/80 sm:text-lg">
             Cinematic wedding films crafted to preserve the feeling of your most extraordinary day.
           </p>
-          <div className="hero-rise flex flex-col gap-3 xs:flex-row">
+          <div className="hero-rise flex flex-col gap-3 sm:flex-row">
             <DateCTA />
             <a
               href="#films"

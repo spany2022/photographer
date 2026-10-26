@@ -35,10 +35,13 @@ export function FilmStrip() {
   );
 
   return (
-    <div ref={rootRef} className="relative -rotate-2 scale-105 overflow-hidden bg-ink py-10 md:py-16" aria-hidden>
-      {row(filmStripFrames, "strip-a")}
-      <div className="h-3" />
-      {row([...filmStripFrames].reverse(), "strip-b")}
+    // The outer box clips the tilted band so its corners never widen the page on phones.
+    <div ref={rootRef} className="relative overflow-hidden bg-ink" aria-hidden>
+      <div className="-rotate-2 scale-105 py-10 md:py-16">
+        {row(filmStripFrames, "strip-a")}
+        <div className="h-3" />
+        {row([...filmStripFrames].reverse(), "strip-b")}
+      </div>
     </div>
   );
 }
